@@ -1,6 +1,4 @@
 from flask import escape
-import base64
-import math
 import json
 import os
 import io
