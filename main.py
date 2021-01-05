@@ -19,14 +19,15 @@ def send_response(request):
     request_json = request.get_json(silent=True)
     request_args = request.args
 
-    if request_json and 'name' in request_json:
-        name = request_json['name']
-    elif request_args and 'name' in request_args:
-        name = request_args['name']
+    if request_json and 'url' in request_json:
+        name = request_json['url']
+    elif request_args and 'url' in request_args:
+        name = request_args['url']
     else:
         url = "https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)"
-        html = getpagedata(url)
-        results = {"html": html}
+
+    html = getpagedata(url)
+    results = {"html": html}
     return results
 
 
@@ -38,7 +39,7 @@ def getpagedata(url):
     options = webdriver.ChromeOptions()
     options.add_argument(f'user-agent={UserAgent().random}')
     options.headless = True
-    driver = webdriver.Chrome('./app/browsers/chromedriver', options=options)
+    driver = webdriver.Chrome('./chromedriver', options=options)
     driver.get(url)
 
     # this is just to ensure that the page is loaded
